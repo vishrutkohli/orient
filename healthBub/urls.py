@@ -10,4 +10,6 @@ urlpatterns = patterns('',
     url(r'^patient$', 'main.views.index', name='patient'),
     url(r'^doctor$', 'main.views.doc', name='doctor'),
     url(r'^government$', 'main.views.govt', name='governemnt'),
+    url(r'^info$', 'main.views.info', name='info'),
+
 )

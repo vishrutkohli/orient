@@ -17,7 +17,7 @@ def index(request):
 	v = Users.objects.get_or_create(uid = uid)[0]
 
 
-	u = v.data_set.get_or_create()[0]
+	u = v.data_set.create()
 	#u.idm = v
 	u.typeof = typeof 
 	u.date = date
@@ -27,6 +27,10 @@ def index(request):
 	u.save()
 
 	return HttpResponse("saved")
+
+
+# def return_c(request):
+
 
 
 def doc(request):
@@ -46,20 +50,50 @@ def govt(request):
 	uid = request.GET.get('uid')
 	v = Users.objects.get(uid = uid)
 	pk = v.pk
-	u = data.objects.get(uid = pk)
 
-	typeof = u.typeof
-	date = u.date
-	medicine = u.medicine
-	duration = u.duration
-	severity  = u.severity
-	review = u.review
+	u = data.objects.filter(uid = pk)
+	c = []
+	for i in u:
+		typeof = i.typeof
+		date = i.date
+		medicine = i.medicine
+		duration = i.duration
+		severity  = i.severity
+		review = i.review
 
-	response_obj = json.dumps({"typeof": typeof, "date":date , "medicine" :medicine , "duration" :duration, "severity" :severity, "review" :review})
+		elem = json.dumps({"typeof": typeof, "date":date , "medicine" :medicine , "duration" :duration, "severity" :severity, "review" :review})
+		c.append(elem)
 
+
+
+	response_obj = json.dumps(c)
 	return HttpResponse(response_obj)	
 
 	# u.review = q['review'] 
 
 
 # Create your views here.
+
+
+
+def info(request):
+	uid = request.GET.get('uid')
+	v = Users.objects.get(uid = uid)
+	pk = v.pk
+
+	u = data.objects.filter(uid = pk)
+	c = []
+	for i in u:
+		typeof = i.typeof
+		date = i.date
+		medicine = i.medicine
+		duration = i.duration
+		severity  = i.severity
+
+		elem = json.dumps({"typeof": typeof, "date":date , "medicine" :medicine , "duration" :duration, "severity" :severity})
+		c.append(elem)
+
+
+
+	response_obj = json.dumps(c)
+	return HttpResponse(response_obj)	
