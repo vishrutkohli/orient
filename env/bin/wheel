@@ -1,4 +1,4 @@
-#!/home/vishrut/Desktop/codingpractice/linkedinapi/env/bin/python
+#!/usr/desktop/django/env/bin/python
 
 # -*- coding: utf-8 -*-
 import re

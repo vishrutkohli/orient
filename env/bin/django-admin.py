@@ -1,4 +1,4 @@
-#!/home/vishrut/Desktop/codingpractice/linkedinapi/env/bin/python
+#!/usr/desktop/django/env/bin/python
 from django.core import management
 
 if __name__ == "__main__":
