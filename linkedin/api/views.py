@@ -1,3 +1,4 @@
+
 import requests
 import json
 from django.http import HttpResponse
@@ -28,7 +29,7 @@ def index(request):
 
 
 
-	payload = {'grant_type': 'authorization_code', 'code': code , 'redirect_uri': 'https://fathomless-depths-13330.herokuapp.com/linkedin', 'client_id': '86xgcoikz5tvem', 'client_secret': 'bMGSpxX8XNEpxocO'}
+	payload = {'grant_type': 'authorization_code', 'code': code , 'redirect_uri': 'http://178.62.41.110:88/linkedin/', 'client_id': '86xgcoikz5tvem', 'client_secret': 'bMGSpxX8XNEpxocO'}
 
 	r = requests.post('https://www.linkedin.com/oauth/v2/accessToken', params=payload)
 	t = json.loads(r.text)
@@ -45,7 +46,7 @@ def index(request):
 	pk = v.pk
 	v.save()
 
-	u = v.data_set.create()
+	u = v.data_set.get_or_create()[0]
 	#u.idm = v
 	u.first_name = q['firstName'] 
 	u.last_name = q['lastName'] 
@@ -85,10 +86,14 @@ def index(request):
 
 
 
+	responseobj = json.dumps(q, indent = 4)
 
 
 
-	return HttpResponse("login sucessfull")
+
+
+
+	return HttpResponse(responseobj,content_type = "application/json")
 
 
 def return_data(request):
